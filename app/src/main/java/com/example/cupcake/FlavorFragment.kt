@@ -21,7 +21,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.cupcake.Models.OrderViewModel
 import com.example.cupcake.databinding.FragmentFlavorBinding
 
 /**
@@ -29,6 +31,7 @@ import com.example.cupcake.databinding.FragmentFlavorBinding
  */
 class FlavorFragment : Fragment() {
 
+    private val orderViewModel:OrderViewModel by viewModels()
     // Binding object instance corresponding to the fragment_flavor.xml layout
     // This property is non-null between the onCreateView() and onDestroyView() lifecycle callbacks,
     // when the view hierarchy is attached to the fragment.
@@ -47,16 +50,14 @@ class FlavorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
-            nextButton.setOnClickListener { goToNextScreen() }
+            nextButton.setOnClickListener {findNavController().navigate(R.id.action_flavorFragment_to_pickupFragment)
+            }
         }
     }
 
     /**
      * Navigate to the next screen to choose pickup date.
      */
-    fun goToNextScreen() {
-        findNavController().navigate(R.id.action_flavorFragment_to_pickupFragment)
-    }
 
     /**
      * This fragment lifecycle method is called when the view hierarchy associated with the fragment
