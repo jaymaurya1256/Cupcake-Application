@@ -1,12 +1,13 @@
-package com.example.cupcake.Models
+package com.example.cupcake.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.nio.channels.FileLock
-import kotlin.properties.Delegates
+import java.text.SimpleDateFormat
+import java.util.*
 
 class OrderViewModel: ViewModel() {
+    val dateOptions = pickUpDate()
     private val _quantity = MutableLiveData<Int>(0)
     val quantity: LiveData<Int> = _quantity
 
@@ -31,4 +32,20 @@ class OrderViewModel: ViewModel() {
     fun calculatePrice(flavourPrice:Int): Int {
         return quantity.value!! * flavourPrice
     }
+    fun hasNoFlavourSet(): Boolean {
+        return _flavor.value.isNullOrEmpty()
+    }
+
+    private fun pickUpDate():List<String>{
+        val option = mutableListOf<String>()
+        val formatter = SimpleDateFormat("E MMM d", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        repeat(4)
+        {
+            option.add(formatter.format(calendar.time))
+            calendar.add(Calendar.DATE, 1)
+        }
+        return option
+    }
+
 }

@@ -19,11 +19,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.cupcake.Models.OrderViewModel
+import com.example.cupcake.models.OrderViewModel
 import com.example.cupcake.databinding.FragmentFlavorBinding
 
 /**
@@ -31,7 +30,7 @@ import com.example.cupcake.databinding.FragmentFlavorBinding
  */
 class FlavorFragment : Fragment() {
 
-    private val orderViewModel:OrderViewModel by viewModels()
+    private val sharedViewModel:OrderViewModel by activityViewModels()
     // Binding object instance corresponding to the fragment_flavor.xml layout
     // This property is non-null between the onCreateView() and onDestroyView() lifecycle callbacks,
     // when the view hierarchy is attached to the fragment.
@@ -48,8 +47,8 @@ class FlavorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding?.apply {
+            viewModel = sharedViewModel
             nextButton.setOnClickListener {findNavController().navigate(R.id.action_flavorFragment_to_pickupFragment)
             }
         }
