@@ -48,12 +48,14 @@ class FlavorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
+            lifecycleOwner = viewLifecycleOwner
             viewModel = sharedViewModel
-            nextButton.setOnClickListener {findNavController().navigate(R.id.action_flavorFragment_to_pickupFragment)
-            }
+            flavorFragment = this@FlavorFragment
         }
     }
 
+    fun goToNextScreen()
+    {findNavController().navigate(R.id.action_flavorFragment_to_pickupFragment)}
     /**
      * Navigate to the next screen to choose pickup date.
      */
